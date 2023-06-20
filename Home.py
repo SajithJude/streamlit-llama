@@ -31,13 +31,13 @@ def process_pdf(uploaded_file):
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0.15, model_name="text-davinci-003", max_tokens=1000))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
     
-    # if "index" not in st.session_state:
-    index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
-    retriever = index.as_retriever(retriever_mode='embedding')
-    index = RetrieverQueryEngine(retriever)
+    if "index" not in st.session_state:
+        index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
+        retriever = index.as_retriever(retriever_mode='embedding')
+        index = RetrieverQueryEngine(retriever)
+        st.session_state.index = index
     # st.session_state.index = index
-    # st.session_state.index = index
-    return index
+    return st.session_state.index
 
 
 
@@ -45,9 +45,9 @@ def process_pdf(uploaded_file):
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
 if uploaded_file is not None:
 
-    # if "index" not in st.session_state:
-    index = process_pdf(uploaded_file)
-    st.success("Index created successfully")
+    if "index" not in st.session_state:
+        st.session_state.index = process_pdf(uploaded_file)
+        st.success("Index created successfully")
 
 
 
