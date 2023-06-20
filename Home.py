@@ -35,9 +35,9 @@ def process_pdf(uploaded_file):
     index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
     retriever = index.as_retriever(retriever_mode='embedding')
     index = RetrieverQueryEngine(retriever)
-    st.session_state.index = index
     # st.session_state.index = index
-    return st.session_state.index
+    # st.session_state.index = index
+    return index
 
 
 
@@ -45,9 +45,9 @@ def process_pdf(uploaded_file):
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
 if uploaded_file is not None:
 
-    if "index" not in st.session_state:
-        st.session_state.index = process_pdf(uploaded_file)
-        st.success("Index created successfully")
+    # if "index" not in st.session_state:
+    st.session_state.index = process_pdf(uploaded_file)
+    st.success("Index created successfully")
 
 
 
