@@ -17,6 +17,9 @@ PDFReader = download_loader("PDFReader")
 
 # loader = PDFReader()
 
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
 
 
 def process_pdf(uploaded_file):
