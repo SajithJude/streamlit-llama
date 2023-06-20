@@ -15,7 +15,7 @@ from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
 PDFReader = download_loader("PDFReader")
 
-loader = PDFReader()
+# loader = PDFReader()
 
 
 
@@ -25,7 +25,7 @@ def process_pdf(uploaded_file):
         temp_file.write(uploaded_file.getvalue())
         documents = loader.load_data(file=Path(temp_file.name))
     
-    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=3900))
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0.15, model_name="text-davinci-003", max_tokens=1000))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
     
     if "index" not in st.session_state:
