@@ -31,7 +31,7 @@ def process_pdf(uploaded_file):
 
     if "tree_index" not in st.session_state:
         tree_index = TreeIndex.from_documents(documents, service_context=service_context)
-        tree_retriever = tree_index.as_retriever(retriever_mode='TreeAllLeafRetriever')
+        tree_retriever = tree_index.as_retriever(retriever_mode='select_leaf')
         tree_index = RetrieverQueryEngine(tree_retriever)
         st.session_state.tree_index = tree_index
     
