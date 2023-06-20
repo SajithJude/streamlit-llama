@@ -56,4 +56,4 @@ asl = st.button("Submit")
 
 if asl:
     resp  = st.session_state.index.query(query).response
-    st.write()
+    st.write(resp)
