@@ -4,7 +4,7 @@ from llama_index import (
     QuestionAnswerPrompt, LLMPredictor, ServiceContext
 )
 
-
+import openai
 from langchain import OpenAI
 from tempfile import NamedTemporaryFile
 from llama_index import download_loader
