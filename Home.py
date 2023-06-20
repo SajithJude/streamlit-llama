@@ -50,5 +50,7 @@ asl = st.button("Submit")
 if asl:
     vector_resp  = st.session_state.vector_index.query(query).response
     tree_resp = st.session_state.tree_index.query(query).response
-    st.write("Vector Index Response:", vector_resp)
-    st.write("Tree Index Response:", tree_resp)
+    st.write("### Vector Index Response:")
+    st.write(vector_resp)
+    st.write("### Tree Index Response:")
+    st.write(tree_resp)
