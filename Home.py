@@ -29,28 +29,33 @@ def process_pdf(uploaded_file):
         vector_index = RetrieverQueryEngine(vector_retriever)
         st.session_state.vector_index = vector_index
 
-    if "tree_index" not in st.session_state:
-        tree_index = TreeIndex.from_documents(documents, service_context=service_context)
-        tree_retriever = tree_index.as_retriever(retriever_mode='select_leaf')
-        tree_index = RetrieverQueryEngine(tree_retriever)
-        st.session_state.tree_index = tree_index
+    modes = ['root', 'all_leaf', 'select_leaf_embedding', 'select_leaf']
+    for mode in modes:
+        if f"tree_index_{mode}" not in st.session_state:
+            tree_index = TreeIndex.from_documents(documents, service_context=service_context)
+            tree_retriever = tree_index.as_retriever(retriever_mode=mode)
+            tree_index = RetrieverQueryEngine(tree_retriever)
+            st.session_state[f"tree_index_{mode}"] = tree_index
     
-    return st.session_state.vector_index, st.session_state.tree_index
+    return st.session_state.vector_index, st.session_state
 
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
 
 if uploaded_file is not None:
-    if "vector_index" not in st.session_state or "tree_index" not in st.session_state:
-        st.session_state.vector_index, st.session_state.tree_index = process_pdf(uploaded_file)
-        st.success("Both Vector Index and Tree Index created successfully")
+    if "vector_index" not in st.session_state:
+        st.session_state.vector_index, st.session_state = process_pdf(uploaded_file)
+        st.success("Vector Index and all Tree Indexes created successfully")
 
 query = st.text_input("Enter query prompt")
 asl = st.button("Submit")
 
 if asl:
     vector_resp  = st.session_state.vector_index.query(query).response
-    tree_resp = st.session_state.tree_index.query(query).response
     st.write("### Vector Index Response:")
     st.write(vector_resp)
-    st.write("### Tree Index Response:")
-    st.write(tree_resp)
+
+    modes = ['root', 'all_leaf', 'select_leaf_embedding', 'select_leaf']
+    for mode in modes:
+        tree_resp = st.session_state[f"tree_index_{mode}"].query(query).response
+        st.write(f"### Tree Index Response ({mode}):")
+        st.write(tree_resp)
