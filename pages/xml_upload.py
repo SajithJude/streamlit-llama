@@ -1,7 +1,14 @@
 import streamlit as st
 import xml.etree.ElementTree as ET
 import json
+from pathlib import Path
 import io
+
+from llama_index import download_loader
+
+# Initialize JSONReader
+JSONReader = download_loader("JSONReader")
+loader = JSONReader()
 
 def xml_to_json(xml_str):
     """Function to convert XML to JSON"""
@@ -25,7 +32,6 @@ def xml_to_json(xml_str):
 
     return _parse(root)
 
-
 def app():
     """Main function that contains Streamlit code"""
     st.title('XML to JSON converter')
@@ -37,7 +43,14 @@ def app():
             bytes_data = uploaded_file.read()  # read as bytes
             str_data = bytes_data.decode("utf-8")  # convert to string
             json_data = xml_to_json(str_data)
-            st.json(json_data)
+            # Define json file path
+            json_file_path = Path('./data.json')
+            # Save json data to a file
+            with json_file_path.open('w') as f:
+                json.dump(json_data, f)
+            # Load the data using the provided loader
+            documents = loader.load_data(json_file_path)
+            st.write(documents)
         except Exception as e:
             st.write("Error occurred:", str(e))
 
