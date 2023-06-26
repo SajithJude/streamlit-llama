@@ -37,7 +37,7 @@ def app():
             bytes_data = uploaded_file.read()  # read as bytes
             str_data = bytes_data.decode("utf-8")  # convert to string
             json_data = xml_to_json(str_data)
-            st.code(json_data)
+            st.json(json_data)
         except Exception as e:
             st.write("Error occurred:", str(e))
 
