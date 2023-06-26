@@ -5,7 +5,11 @@ from pathlib import Path
 import io
 import os
 import openai
-from llama_index import GPTVectorStoreIndex, ServiceContext
+from llama_index import (
+    GPTVectorStoreIndex, Document, SimpleDirectoryReader,
+    QuestionAnswerPrompt, LLMPredictor, ServiceContext
+)
+# from llama_index import GPTVectorStoreIndex, ServiceContext
 from llama_index.query_engine import RetrieverQueryEngine
 from langchain import OpenAI
 from llama_index import download_loader
