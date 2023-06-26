@@ -1,11 +1,11 @@
 import streamlit as st
 import xml.etree.ElementTree as ET
 import json
-
+import io
 
 def xml_to_json(xml_str):
     """Function to convert XML to JSON"""
-    data = ET.parse(xml_str)
+    data = ET.parse(io.StringIO(xml_str))
     root = data.getroot()
 
     def _parse(node):
@@ -24,6 +24,7 @@ def xml_to_json(xml_str):
         return json_node
 
     return _parse(root)
+
 
 def app():
     """Main function that contains Streamlit code"""
