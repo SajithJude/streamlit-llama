@@ -47,7 +47,7 @@ def process_data(documents):
         vector_index = RetrieverQueryEngine(vector_retriever)
         st.session_state.vector_index = vector_index
 
-    return st.session_state.vector_index, st.session_state
+    return st.session_state.vector_index
 
 def xml_to_json(xml_str):
     """Function to convert XML to JSON"""
