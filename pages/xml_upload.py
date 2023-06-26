@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import io
 import os
+import openai
 from llama_index import GPTVectorStoreIndex, ServiceContext
 from llama_index.query_engine import RetrieverQueryEngine
 from langchain import OpenAI
