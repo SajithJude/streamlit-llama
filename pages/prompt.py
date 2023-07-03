@@ -20,7 +20,7 @@ def process_pdf(uploaded_file):
         temp_file.write(uploaded_file.getvalue())
         documents = loader.load_data(file=Path(temp_file.name))
     
-    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0.15, model_name="text-davinci-003", max_tokens=1000))
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0.15, model_name="text-davinci-003", max_tokens=2800))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
     
     if "vector_index" not in st.session_state:
