@@ -36,7 +36,7 @@ def process_pdf(uploaded_file):
     
     return st.session_state.vector_index, st.session_state
 
-uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+uploaded_file = st.file_uploader("Upload a EPUB file")
 
 if uploaded_file is not None:
     if "vector_index" not in st.session_state:
