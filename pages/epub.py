@@ -21,7 +21,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def process_pdf(uploaded_file):
     loader = EpubReader()
-    with NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+    with NamedTemporaryFile(delete=False, suffix=".epub") as temp_file:
         temp_file.write(uploaded_file.getvalue())
         documents = loader.load_data(file=Path(temp_file.name))
     
