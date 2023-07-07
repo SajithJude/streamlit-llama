@@ -89,13 +89,13 @@ buto = st.button("submit")
 if buto:
     data = SimpleWebPageReader(html_to_text=True).load_data([url])
     st.write(data)
-    index = GPTVectorStoreIndex.from_documents(data)
-    chat_engine = index.as_chat_engine(chat_mode='react', verbose=True)
-    # return chat_engine
+index = GPTVectorStoreIndex.from_documents(data)
+chat_engine = index.as_chat_engine(chat_mode='react', verbose=True)
+# return chat_engine
 
-    
-    # chat_egine = initialize_chat_engine(data)
-    st.write(chat_egine)
+
+# chat_egine = initialize_chat_engine(data)
+st.write(chat_egine)
 
     # pass
 
