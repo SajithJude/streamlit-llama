@@ -23,7 +23,7 @@ def execute_query(prompt, course_name, directory):
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
-        {"role": "system", "content": "Generate a voice over script for the paragraphs beloning to the subtopics for an e-learning video"},
+        {"role": "system", "content": "Generate a voice over script for the paragraphs beloning to the relevant subtopics."},
         {"role": "user", "content": prompt}
       ]
     )
