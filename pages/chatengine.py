@@ -27,15 +27,16 @@ def main():
     
     # The URL of the webpage you want to use as the knowledge base
     url = st.text_input("Enter the URL of the webpage you want to use as the knowledge base:")
-    if url:
+    buto = st.button("submit")
+    if buto:
         data = SimpleWebPageReader(html_to_text=True).load_data([url])
         chat_engine = initialize_chat_engine(data)
 
-        st.subheader("Interactive Quiz")
-        question = st.text_input("Enter your question:")
-        if st.button("Submit"):
-            response = chat_interaction(chat_engine, question)
-            st.write(response)
+    st.subheader("Interactive Quiz")
+    question = st.text_input("Enter your question:")
+    if st.button("Submit"):
+        response = chat_interaction(chat_engine, question)
+        st.write(response)
 
 if __name__ == "__main__":
     main()
