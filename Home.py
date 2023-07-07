@@ -67,14 +67,14 @@
 import os
 import openai
 import streamlit as st
-from llama_index import VectorStoreIndex, SimpleWebPageReader
+from llama_index import GPTVectorStoreIndex, SimpleWebPageReader
 
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 
 os.environ['OPENAI_API_KEY'] =  os.getenv("OPENAI_API_KEY")
 
 # Initialize chat engine
-def initialize_chat_engine(data):
+# def initialize_chat_engine(data):
     
 # Function for chat interaction
 def chat_interaction(chat_engine, question):
@@ -89,7 +89,7 @@ buto = st.button("submit")
 if buto:
     data = SimpleWebPageReader(html_to_text=True).load_data([url])
     st.write(data)
-    index = VectorStoreIndex.from_documents(data)
+    index = GPTVectorStoreIndex.from_documents(data)
     chat_engine = index.as_chat_engine(chat_mode='react', verbose=True)
     # return chat_engine
 
