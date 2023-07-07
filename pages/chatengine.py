@@ -8,7 +8,7 @@ from llama_index import VectorStoreIndex, SimpleWebPageReader
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# os.environ['OPENAI_API_KEY'] = "YOUR_OPENAI_API_KEY"
+os.environ['OPENAI_API_KEY'] =  os.getenv("OPENAI_API_KEY")
 
 # Initialize chat engine
 def initialize_chat_engine(data):
