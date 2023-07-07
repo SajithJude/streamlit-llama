@@ -68,7 +68,7 @@ st.title('Voiceover Script Generator')
 json_input = st.text_area('Input JSON:')
 but = st.button("submit")
 if but:
-    data = load_json(user_input)
+    data = json.loads(json_input)
 
 # If the data was loaded successfully, display it
     if data is not None:
