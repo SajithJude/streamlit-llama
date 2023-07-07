@@ -4,3 +4,4 @@ openai
 langchain
 llama-index
 nltk
+html2text
