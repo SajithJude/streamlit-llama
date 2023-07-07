@@ -51,8 +51,8 @@ def saveSubTopicBulletsWithVO(topics, course_settings, course_name, directory):
             subtopic_name = subtopic.get("subtopic_name", "")
             vo_script = generate_voiceover_script(subtopic_name, bullet_texts, course_name, directory)
             
-            # for bullet in bullets:
-            bullets["bullet_voiceover"] = vo_script
+            for bullet in bullets:
+                bullet["bullet_voiceover"] = vo_script
 
         NoOfWordsForVOPerTopic = course_settings.get("NoOfWordsForVOPerTopic", 0)
         Topicvoiceover_query = f"Generate voiceover for {topic_name} in {NoOfWordsForVOPerTopic} words"
