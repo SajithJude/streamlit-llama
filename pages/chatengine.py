@@ -28,11 +28,11 @@ url = st.text_input("Enter the URL of the webpage you want to use as the knowled
 buto = st.button("submit")
 if buto:
     data = SimpleWebPageReader(html_to_text=True).load_data([url])
-    chat_engine = initialize_chat_engine(data)
+    chat_egine = initialize_chat_engine(data)
 
 st.subheader("Interactive Quiz")
 question = st.text_input("Enter your question:")
 if st.button("Submit"):
-    response = chat_interaction(chat_engine, question)
+    response = chat_interaction(chat_egine, question)
     st.write(response)
 
