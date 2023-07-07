@@ -72,9 +72,9 @@ if but:
 
 # If the data was loaded successfully, display it
     if data is not None:
-        st.header(data['course_name'])
-        st.write(data['Overview'])
-        st.write(data['Overview_Voiceover'])
+        # st.header(data['course_name'])
+        # st.write(data['Overview'])
+        # st.write(data['Overview_Voiceover'])
 
         for topic in data['topics']:
             for subtopic in topic['subtopics']:
