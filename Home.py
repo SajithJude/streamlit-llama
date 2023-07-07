@@ -92,6 +92,7 @@ buto = st.button("submit")
 if buto:
     data = SimpleWebPageReader(html_to_text=True).load_data([url])
     chat_egine = initialize_chat_engine(data)
+    pass
 
 st.subheader("Interactive Quiz")
 question = st.text_input("Enter your question:")
