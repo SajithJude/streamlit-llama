@@ -75,10 +75,7 @@ os.environ['OPENAI_API_KEY'] =  os.getenv("OPENAI_API_KEY")
 
 # Initialize chat engine
 def initialize_chat_engine(data):
-    index = VectorStoreIndex.from_documents(data)
-    chat_engine = index.as_chat_engine(chat_mode='react', verbose=True)
-    return chat_engine
-
+    
 # Function for chat interaction
 def chat_interaction(chat_engine, question):
     response = chat_engine.chat(question)
@@ -92,11 +89,15 @@ buto = st.button("submit")
 if buto:
     data = SimpleWebPageReader(html_to_text=True).load_data([url])
     st.write(data)
+    index = VectorStoreIndex.from_documents(data)
+    chat_engine = index.as_chat_engine(chat_mode='react', verbose=True)
+    # return chat_engine
+
     
-    chat_egine = initialize_chat_engine(data)
+    # chat_egine = initialize_chat_engine(data)
     st.write(chat_egine)
 
-    pass
+    # pass
 
 st.subheader("Interactive Quiz")
 question = st.text_input("Enter your question:")
