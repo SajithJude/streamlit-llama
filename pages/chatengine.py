@@ -6,7 +6,7 @@ import openai
 import streamlit as st
 from llama_index import VectorStoreIndex, SimpleWebPageReader
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# openai.api_key = os.getenv("OPENAI_API_KEY")
 
 os.environ['OPENAI_API_KEY'] =  os.getenv("OPENAI_API_KEY")
 
