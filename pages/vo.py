@@ -62,9 +62,9 @@ def saveSubTopicBulletsWithVO(topics, course_settings, course_name, directory):
             vo_sentences = sent_tokenize(vo_script)
             
             # Check if the number of sentences matches the number of bullets
-            if len(vo_sentences) == len(bullets):
-                for bullet, sentence in zip(bullets, vo_sentences):
-                    bullet["bullet_voiceover"] = sentence
+            # if len(vo_sentences) == len(bullets):
+            for bullet, sentence in zip(bullets, vo_sentences):
+                bullet["bullet_voiceover"] = sentence
             # else:
             #     # In case the number of sentences doesn't match,
             #     # add the entire voiceover script to each bullet
