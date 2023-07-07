@@ -16,44 +16,61 @@ import os
 from pathlib import Path
 # PDFReader = download_loader("PDFReader")
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import sent_tokenize
 
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def execute_query(prompt, course_name, directory):
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
-        {"role": "system", "content": "Generate a voice over script for the paragraphs beloning to the relevant subtopics."},
+        {"role": "system", "content": "You are generating a voiceover script for an e-learning course. The script should be formatted as separate sentences, with each sentence corresponding to a specific bullet point."},
         {"role": "user", "content": prompt}
       ]
     )
     
     # Assuming the generated voiceover script is the text returned
     return response.choices[0].message['content'].strip(), "Success"
+
 def generate_voiceover_script(subtopic_name, bullets, course_name, directory):
-    paragraph = subtopic_name + '\n' + '\n'.join(bullets)
+    bullet_str = ' '.join(bullets)
+    paragraph = f"{subtopic_name}. {bullet_str}"
     st.write("#### Paragraph")
     st.write(paragraph)
 
-    vo_query = f"Generate a voice over script for the following paragraph of '{paragraph}'."
+    vo_query = f"Please create a voice over script for the following points under the subtopic '{subtopic_name}': {bullet_str}. Each sentence of the script should correspond to one of the bullet points."
     vo_response, message = execute_query(vo_query, course_name, directory)
     vo_response = vo_response.replace("\n", "").replace("\\", "").replace("\"", "")
     return vo_response
 
+
+
 def saveSubTopicBulletsWithVO(topics, course_settings, course_name, directory):
     for index, topic in enumerate(topics):
         subtopics = topic.get("subtopics", [])
-        topic_name = topic.get("topic_name")
 
         for sub_index, subtopic in enumerate(subtopics):
             bullets = subtopic.get("subtopic_bullets", [])
             bullet_texts = [bullet['bullet'] for bullet in bullets]
             subtopic_name = subtopic.get("subtopic_name", "")
             vo_script = generate_voiceover_script(subtopic_name, bullet_texts, course_name, directory)
-            
-            for bullet in bullets:
-                bullet["bullet_voiceover"] = vo_script
 
+            # Split the voiceover script into sentences
+            vo_sentences = sent_tokenize(vo_script)
+            
+            # Check if the number of sentences matches the number of bullets
+            if len(vo_sentences) == len(bullets):
+                for bullet, sentence in zip(bullets, vo_sentences):
+                    bullet["bullet_voiceover"] = sentence
+            else:
+                # In case the number of sentences doesn't match,
+                # add the entire voiceover script to each bullet
+                for bullet in bullets:
+                    bullet["bullet_voiceover"] = vo_script
+            
         NoOfWordsForVOPerTopic = course_settings.get("NoOfWordsForVOPerTopic", 0)
         Topicvoiceover_query = f"Generate voiceover for {topic_name} in {NoOfWordsForVOPerTopic} words"
         Topicvoiceover, message = execute_query(Topicvoiceover_query, course_name, directory)
