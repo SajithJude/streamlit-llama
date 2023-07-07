@@ -14,7 +14,7 @@ from tempfile import NamedTemporaryFile
 from llama_index import download_loader
 import os
 from pathlib import Path
-PDFReader = download_loader("PDFReader")
+# PDFReader = download_loader("PDFReader")
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
