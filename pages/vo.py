@@ -69,32 +69,36 @@ json_input = st.text_area('Input JSON:')
 but = st.button("submit")
 if but:
     data = json.loads(json_input)
-    st.write(data)
 
-# If the data was loaded successfully, display it
-    if data is not None:
-        # st.header(data['course_name'])
-        # st.write(data['Overview'])
-        # st.write(data['Overview_Voiceover'])
+    # Extract the necessary information
+    result = data["result"]
+    course_name = result["course_name"]
+    topics = result["topics"]
+    course_settings = {}  # Replace with your actual course settings
+    directory = ""  # Replace with your actual directory
 
-        for topic in data['topics']:
-            for subtopic in topic['subtopics']:
-                st.markdown(f"**{subtopic['subtopic_name']}**")
+    # Run your function
+    new_topics = saveSubTopicBulletsWithVO(topics, course_settings, course_name, directory)
 
-                # Start a two-column layout
-                col1, col2 = st.columns(2)
+    # Replace the old topics with the new ones in the result
+    result["topics"] = new_topics
 
-                # Bullets in the left column
-                with col1:
-                    for bullet in subtopic['subtopic_bullets']:
-                        st.write(bullet['bullet'])
+    # Display the updated JSON
+    for topic in result['topics']:
+        for subtopic in topic['subtopics']:
+            st.markdown(f"**{subtopic['subtopic_name']}**")
 
-                # Voiceover script in the right column
-                with col2:
-                    for bullet in subtopic['subtopic_bullets']:
-                        st.write(bullet['bullet_voiceover'])
+            # Start a two-column layout
+            col1, col2 = st.columns(2)
+
+            # Bullets in the left column
+            with col1:
+                for bullet in subtopic['subtopic_bullets']:
+                    st.write(bullet['bullet'])
+
+            # Voiceover script in the right column
+            with col2:
+                for bullet in subtopic['subtopic_bullets']:
+                    st.write(bullet['bullet_voiceover'])
 
             # End the two-column layout
-
-        # st.write(topic['topic_summary'])
-        # st.write(topic['topic_summary_voiceover_script'])
