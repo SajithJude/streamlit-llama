@@ -69,6 +69,7 @@ json_input = st.text_area('Input JSON:')
 but = st.button("submit")
 if but:
     data = json.loads(json_input)
+    st.write(data)
 
 # If the data was loaded successfully, display it
     if data is not None:
