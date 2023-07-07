@@ -38,9 +38,6 @@ def execute_query(prompt, course_name, directory):
 def generate_voiceover_script(subtopic_name, bullets, course_name, directory):
     bullet_str = ' '.join(bullets)
     paragraph = f"{subtopic_name}. {bullet_str}"
-    st.write("#### Paragraph")
-    st.write(paragraph)
-
     vo_query = f"Please create a voice over script for the following points under the subtopic '{subtopic_name}': {bullet_str}. Each sentence of the script should correspond to one of the bullet points."
     vo_response, message = execute_query(vo_query, course_name, directory)
     vo_response = vo_response.replace("\n", "").replace("\\", "").replace("\"", "")
