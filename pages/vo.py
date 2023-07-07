@@ -65,11 +65,11 @@ def saveSubTopicBulletsWithVO(topics, course_settings, course_name, directory):
             if len(vo_sentences) == len(bullets):
                 for bullet, sentence in zip(bullets, vo_sentences):
                     bullet["bullet_voiceover"] = sentence
-            else:
-                # In case the number of sentences doesn't match,
-                # add the entire voiceover script to each bullet
-                for bullet in bullets:
-                    bullet["bullet_voiceover"] = vo_script
+            # else:
+            #     # In case the number of sentences doesn't match,
+            #     # add the entire voiceover script to each bullet
+            #     for bullet in bullets:
+            #         bullet["bullet_voiceover"] = vo_script
             
         # NoOfWordsForVOPerTopic = course_settings.get("NoOfWordsForVOPerTopic", 0)
         # Topicvoiceover_query = f"Generate voiceover for {topic_name} in {NoOfWordsForVOPerTopic} words"
